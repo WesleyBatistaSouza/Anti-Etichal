@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Anti Ethical</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090B0A;--bg2:#111613;--sf:#171D19;--g:#39FF88;--c:#4DEEEA;--tx:#E8F0EA;--t2:#8B9A90;--bd:#27332B;--r:#FF5D67;--y:#F5C451;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;display:flex;min-height:100vh}
+.m,h1,h2,h3,.tag,nav button,label{font-family:'JetBrains Mono',monospace}
+h1{font-size:20px;margin:0 0 16px}h2{font-size:14px;margin:0 0 10px;color:var(--c);text-transform:uppercase}
+aside{width:220px;background:var(--bg2);border-right:1px solid var(--bd);padding:16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;flex-shrink:0;transition:width .15s}
+aside.min{width:64px}aside.min .lb{display:none}
+nav button{display:flex;gap:10px;align-items:center;width:100%;background:none;border:0;color:var(--t2);padding:9px 10px;border-radius:6px;cursor:pointer;font-size:13px;text-align:left}
+nav button:hover{background:var(--sf);color:var(--tx)}nav button.on{background:var(--sf);color:var(--g)}
+main{flex:1;padding:20px;min-width:0;max-width:1300px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+button,input,select,textarea{font:inherit;color:var(--tx)}
+.btn{background:var(--g);color:#04120a;border:0;border-radius:6px;padding:7px 12px;font-weight:600;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px}
+.btn.s{background:none;color:var(--tx);border:1px solid var(--bd)}.btn.d{background:var(--r);color:#fff}
+.btn:hover{filter:brightness(1.12)}
+:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+input,select,textarea{background:var(--bg2);border:1px solid var(--bd);border-radius:6px;padding:7px 9px;width:100%}
+label{display:block;font-size:11px;color:var(--t2);margin:8px 0 3px}
+.bar{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden;border:1px solid var(--bd)}.bar i{display:block;height:100%;background:var(--g);transition:width .3s}
+.tag{font-size:10px;padding:2px 6px;border:1px solid var(--bd);border-radius:4px;color:var(--t2)}
+.p-crítica{color:var(--r);border-color:var(--r)}.p-alta{color:var(--y);border-color:var(--y)}.p-média{color:var(--c)}
+.kb{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:10px;overflow-x:auto;align-items:start}
+.col{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:8px;min-height:120px}.col.over{border-color:var(--g)}
+.k{background:var(--sf);border:1px solid var(--bd);border-radius:6px;padding:10px;margin-top:8px;cursor:grab}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+dialog{background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:10px;width:min(560px,94vw);max-height:90vh}
+dialog::backdrop{background:#000a}
+.mut{color:var(--t2);font-size:13px}
+.ck{display:flex;gap:8px;align-items:flex-start;padding:3px 0}.ck input{width:auto;margin-top:4px}
+.bt{display:flex;align-items:center;gap:8px;font-size:12px;margin:4px 0}.bt .bar{flex:1}
+#mb{display:none}
+@media(max-width:760px){body{flex-direction:column}aside{width:100%;height:auto;position:static;flex-direction:row;overflow-x:auto}aside .brand{display:none}nav{display:flex}nav button{width:auto;white-space:nowrap}#mb{display:none}.lb{display:inline}aside.min{width:100%}aside.min .lb{display:inline}}
+</style></head><body>
+<aside id="sb"><div class="brand"><b class="m" style="color:var(--g)"><span class="lb">ANTI ETHICAL</span></b><div class="mut m lb" id="side"></div></div><nav id="nav"></nav>
+<button class="btn s brand" id="tg" aria-label="Recolher menu" style="margin-top:auto">&lt;&gt;</button></aside>
+<main id="app"></main>
+<dialog id="dl"></dialog>
+<script>
+const KEY='antiethical.v1',CATS=['Linux','Redes','Segurança web','Programação','Blue Team','Red Team','Laboratórios','Revisão','Faculdade','Treino','Corrida','Casa','Alimentação','Descanso'],PR=['baixa','média','alta','crítica'],COLS=['Backlog','Próximas','Em andamento','Concluídas'];
+const PH=[['Fundamentos (sem. 1–3)',['Funcionamento dos computadores','Sistemas operacionais','Introdução ao Linux','Terminal e comandos básicos','Redes de computadores','IP, DNS, TCP, UDP, portas, HTTP e HTTPS','Conceitos de segurança da informação']],
+['Ferramentas e investigação (sem. 4–6)',['Windows e PowerShell','Linux intermediário','Processos e permissões','Wireshark','Logs e análise de eventos','Hashes e fundamentos de criptografia','Introdução à automação (JS ou Python)']],
+['Segurança web e APIs (sem. 7–9)',['Requisições e respostas HTTP','Cookies e sessões','Autenticação e autorização','Controle de acesso','SQL Injection','Cross-Site Scripting','Laboratórios de aplicações vulneráveis','Correção e validação de vulnerabilidades']],
+['Projeto de conclusão (sem. 10–12)',['Escolher projeto autorizado','Planejar os testes','Executar em ambiente controlado','Registrar evidências','Elaborar relatório','Organizar portfólio']]];
+const BL={W:['Estudo opcional 15–20 min','Manutenção básica da casa','Alimentação e descanso','Treino curto (se houver energia)'],F1:['Estudo 60 min','Prática 30 min','Treino de força','Limpeza principal da casa'],F2:['Estudo 60 min','Revisão 15 min','Segundo treino ou corrida leve','Preparar refeições e planejar próximo ciclo']};
+const TPL={'Estudo teórico':{concepts:'O que estudei e por quê?'},'Laboratório prático':{concepts:'Objetivo do laboratório',commands:'$ '},'Investigação de erro':{errors:'Mensagem de erro exata',solution:'Hipóteses testadas e solução'},'Relatório de vulnerabilidade':{concepts:'Descrição e impacto',result:'Evidências',solution:'Correção recomendada'},'Revisão de ciclo':{concepts:'O que aprendi neste ciclo',todo:'O que falta aprender'}};
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36),iso=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')},td=()=>iso(new Date());
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)},diff=(a,b)=>Math.round((pd(a)-pd(b))/864e5);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function demo(){const t=(title,description,category,priority,status,sub,est)=>({id:uid(),title,description,category,priority,status,created:td(),due:'',subs:sub.map(x=>({id:uid(),t:x,d:false})),est,spent:0,notes:''});
+return{v:1,start:td(),cycleStart:td(),tasks:[t('Configurar laboratório','Máquina virtual com Linux e ambiente seguro isolado','Laboratórios','alta','Próximas',['Instalar VirtualBox','Criar VM Linux','Tirar snapshot inicial'],90),t('Comandos básicos de Linux','ls, cd, grep, chmod, pipes','Linux','média','Próximas',['Navegação','Permissões','Redirecionamento'],60),t('Modelo OSI e TCP/IP','Camadas, portas e protocolos','Redes','média','Backlog',['Resumo','Exercícios'],45),t('Anatomia de uma requisição HTTP','Métodos, cabeçalhos e status codes','Segurança web','média','Backlog',['Ler a teoria','Inspecionar no navegador'],45)],
+road:{},journal:[{id:uid(),title:'Exemplo: primeiro contato com o terminal',date:td(),cat:'Linux',concepts:'Navegação em diretórios',commands:'pwd; ls -la; cd /tmp',result:'Listei arquivos ocultos',errors:'',solution:'',todo:'Entender permissões',refs:'',tags:'linux,terminal'}],routine:{},habits:['Treino','Corrida','Estudo','Casa','Refeições'],wins:[],log:[]}}
+let S,view='Dashboard',F={q:'',cat:'',pr:'',st:'',sort:''},JQ='',err='';
+function load(){try{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):demo();if(!S.tasks)throw 0}catch(e){err='Falha ao ler dados; carregados dados de demonstração.';S=demo()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){err='Não foi possível salvar (armazenamento cheio ou bloqueado).'}push()}
+function log(m){S.log.unshift({t:new Date().toISOString(),m});S.log=S.log.slice(0,30)}
+const dayN=()=>diff(td(),S.start)+1,cyc=d=>{const i=((diff(d,S.cycleStart))%6+6)%6;return i<4?{k:'W',n:'Trabalho '+(i+1)+'/4'}:i==4?{k:'F1',n:'Folga 1'}:{k:'F2',n:'Folga 2'}};
+const roadStats=()=>{let d=0,t=0;const ph=PH.map((p,i)=>{const n=p[1].filter((_,j)=>S.road[i+'-'+j]).length;d+=n;t+=p[1].length;return Math.round(n/p[1].length*100)});return{ph,d,t}};
+const prog=()=>{const r=roadStats(),dn=S.tasks.filter(x=>x.status=='Concluídas').length,tot=S.tasks.length+r.t;return tot?Math.round((dn+r.d)/tot*100):0};
+const bar=p=>`<div class="bar" role="progressbar" aria-valuenow="${p}"><i style="width:${p}%"></i></div>`;
+const NAV=['Dashboard','Kanban','Roadmap','Rotina 4x2','Diário técnico','Estatísticas','Configurações'];
+function nav(){document.getElementById('nav').innerHTML=NAV.map(n=>`<button class="${n==view?'on':''}" data-go="${n}"><span>&gt;</span><span class="lb">${n}</span></button>`).join('');document.getElementById('side').innerHTML=`<span style="color:var(${st=='ok'?'--g':'--y'})">&#9679;</span> ${st=='ok'?'sync':'sem sync'} · dia ${Math.max(1,dayN())}/70`}
+function render(){nav();const a=document.getElementById('app');const V={Dashboard,Kanban,Roadmap,'Rotina 4x2':Rotina,'Diário técnico':Diario,Estatísticas:Stats,Configurações:Config};a.innerHTML=(err?`<div class="card" style="border-color:var(--r);margin-bottom:12px">${esc(err)} <button class="btn s" data-act="clr">OK</button></div>`:'')+V[view]()}
+function Dashboard(){const dn=dayN(),p=prog(),open=S.tasks.filter(t=>t.status!='Concluídas').sort((a,b)=>PR.indexOf(b.priority)-PR.indexOf(a.priority)),m=open[0],c=cyc(td()),r=S.routine[td()]||{},bl=BL[c.k],done=S.tasks.filter(t=>t.status=='Concluídas').length,lab=S.tasks.filter(t=>t.status=='Concluídas'&&t.category=='Laboratórios').length,stu=Object.values(S.routine).reduce((n,d)=>n+Object.keys(d).filter(k=>d[k]=='done'&&/Estudo|Prática|Revisão/.test(k)).length,0);
+const hb=Object.values(S.routine).reduce((n,d)=>n+Object.values(d).filter(v=>v=='done').length,0);
+return`<h1>Olá. ${new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</h1>
+<div class="card"><div class="row" style="justify-content:space-between"><b class="m">${dn<1?'Desafio começa em '+(1-dn)+' dia(s)':dn>70?'Desafio concluído':'Dia '+dn+' de 70'}</b><span class="mut">${Math.max(0,70-dn)} dias restantes · progresso geral ${p}%</span></div>${bar(p)}</div>
+<div class="grid" style="margin-top:12px"><div class="card"><h2>Missão prioritária</h2>${m?`<b>${esc(m.title)}</b><p class="mut">${esc(m.description)}</p><span class="tag p-${m.priority}">${m.priority}</span> <span class="tag">${m.category}</span>`:'<p class="mut">Nenhuma tarefa aberta. Crie sua primeira missão.</p>'}<div style="margin-top:10px"><button class="btn" data-act="newtask">+ Nova tarefa</button></div></div>
+<div class="card"><h2>Hoje · ${c.n}</h2>${bl.map(b=>`<div class="ck"><span>${r[b]=='done'?'[x]':r[b]=='skip'?'[-]':'[ ]'}</span>${esc(b)}</div>`).join('')}<button class="btn s" data-go="Rotina 4x2">Abrir rotina</button></div>
+<div class="card"><h2>Indicadores</h2><p class="m">Tarefas concluídas: ${done}<br>Sessões de estudo: ${stu}<br>Laboratórios: ${lab}<br>Atividades da rotina feitas: ${hb}</p></div>
+<div class="card"><h2>Atividade recente</h2>${S.log.length?S.log.slice(0,6).map(l=>`<div class="mut">${new Date(l.t).toLocaleDateString('pt-BR')} · ${esc(l.m)}</div>`).join(''):'<p class="mut">Sem atividade ainda. Conclua uma tarefa para começar.</p>'}</div></div>`}
+function Kanban(){let ts=S.tasks.filter(t=>(!F.q||t.title.toLowerCase().includes(F.q.toLowerCase()))&&(!F.cat||t.category==F.cat)&&(!F.pr||t.priority==F.pr)&&(!F.st||t.status==F.st));
+if(F.sort=='pr')ts.sort((a,b)=>PR.indexOf(b.priority)-PR.indexOf(a.priority));if(F.sort=='due')ts.sort((a,b)=>(a.due||'9')<(b.due||'9')?-1:1);
+const o=(a,v,l)=>`<option value="${v}" ${a==v?'selected':''}>${l}</option>`;
+return`<h1>Kanban</h1><div class="row" style="margin-bottom:12px"><input style="max-width:200px" placeholder="Buscar título" value="${esc(F.q)}" data-f="q" aria-label="Buscar"><select style="width:auto" data-f="cat" aria-label="Categoria">${o(F.cat,'','Categoria')}${CATS.map(c=>o(F.cat,c,c)).join('')}</select><select style="width:auto" data-f="pr" aria-label="Prioridade">${o(F.pr,'','Prioridade')}${PR.map(c=>o(F.pr,c,c)).join('')}</select><select style="width:auto" data-f="st" aria-label="Status">${o(F.st,'','Status')}${COLS.map(c=>o(F.st,c,c)).join('')}</select><select style="width:auto" data-f="sort" aria-label="Ordenar">${o(F.sort,'','Ordem manual')}${o(F.sort,'pr','Prioridade')}${o(F.sort,'due','Prazo')}</select><button class="btn" data-act="newtask">+ Tarefa</button></div>
+<div class="kb">${COLS.map(c=>`<div class="col" data-col="${c}"><h2>${c} (${ts.filter(t=>t.status==c).length})</h2>${ts.filter(t=>t.status==c).map(card).join('')}</div>`).join('')}</div>`}
+function card(t){const d=t.subs.filter(s=>s.d).length;return`<div class="k" draggable="true" data-id="${t.id}"><b>${esc(t.title)}</b><div class="row" style="margin:6px 0"><span class="tag p-${t.priority}">${t.priority}</span><span class="tag">${t.category}</span>${t.due?`<span class="tag">${t.due}</span>`:''}${t.est?`<span class="tag">${t.est}min</span>`:''}</div>
+${t.subs.length?`<div class="bt m">${d}/${t.subs.length}${bar(Math.round(d/t.subs.length*100))}</div>`:''}
+<div class="row"><select data-mv="${t.id}" style="width:auto;font-size:12px" aria-label="Mover">${COLS.map(c=>`<option ${c==t.status?'selected':''}>${c}</option>`).join('')}</select><button class="btn s" data-edit="${t.id}">Editar</button></div></div>`}
+function Roadmap(){const r=roadStats();return`<h1>Roadmap · ${Math.round(r.d/r.t*100)}%</h1>${bar(Math.round(r.d/r.t*100))}<div class="grid" style="margin-top:12px">${PH.map((p,i)=>`<div class="card"><h2>Fase ${i+1} — ${p[0]}</h2><div class="mut m">${r.ph[i]}%</div>${bar(r.ph[i])}<div style="margin-top:8px">${p[1].map((m,j)=>`<label class="ck" style="font-family:inherit;color:var(--tx);font-size:14px;margin:0"><input type="checkbox" data-rd="${i}-${j}" ${S.road[i+'-'+j]?'checked':''}>${m}</label>`).join('')}</div></div>`).join('')}</div>`}
+function Rotina(){const days=[];for(let i=0;i<6;i++){const d=iso(new Date(Date.now()+i*864e5));days.push(d)}
+return`<h1>Rotina 4x2</h1><p class="mut">Trabalho 07h–19h (deslocamento 05h–20h30). Blocos são sugestões, não obrigações. Ajuste o início do ciclo em Configurações.</p><div class="grid">${days.map(d=>{const c=cyc(d),r=S.routine[d]||{};return`<div class="card"><h2>${pd(d).toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'})} · ${c.n}</h2>${BL[c.k].map(b=>`<div style="margin:6px 0"><div style="${r[b]=='skip'?'text-decoration:line-through;color:var(--t2)':''}">${r[b]=='done'?'[x] ':''}${esc(b)}</div><div class="row">${['done:Concluir','skip:Pular','re:Reagendar'].map(x=>{const[k,l]=x.split(':');return`<button class="btn s" style="padding:3px 7px" data-rt="${d}|${b}|${k}">${l}</button>`}).join('')}</div></div>`).join('')}<label>Observações</label><textarea rows="2" data-obs="${d}">${esc(r._obs||'')}</textarea></div>`}).join('')}</div>`}
+function Diario(){const js=S.journal.filter(j=>!JQ||(j.title+j.tags+j.cat+j.concepts).toLowerCase().includes(JQ.toLowerCase()));
+return`<h1>Diário técnico</h1><div class="row" style="margin-bottom:12px"><input style="max-width:240px" placeholder="Buscar" value="${esc(JQ)}" data-jq aria-label="Buscar"><button class="btn" data-act="newj">+ Registro</button></div><div class="grid">${js.length?js.map(j=>`<div class="card"><b>${esc(j.title)}</b><div class="mut m">${j.date} · ${esc(j.cat)}</div><p class="mut">${esc(j.concepts).slice(0,140)}</p><div class="row">${(j.tags||'').split(',').filter(Boolean).map(t=>`<span class="tag">#${esc(t.trim())}</span>`).join('')}</div><div class="row" style="margin-top:8px"><button class="btn s" data-ej="${j.id}">Abrir/editar</button></div></div>`).join(''):'<p class="mut">Nenhum registro. Documente seu raciocínio, não só a resposta.</p>'}</div>`}
+function Stats(){const dn=S.tasks.filter(t=>t.status=='Concluídas'),by={};dn.forEach(t=>by[t.category]=(by[t.category]||0)+1);const mx=Math.max(1,...Object.values(by)),min=S.tasks.reduce((n,t)=>n+(+t.spent||0),0),r=roadStats();
+const rt=Object.values(S.routine).reduce((n,d)=>n+Object.values(d).filter(v=>v=='done').length,0);
+return`<h1>Estatísticas</h1><div class="grid"><div class="card"><h2>Resumo</h2><p class="m">Tarefas concluídas: ${dn.length}<br>Tempo dedicado: ${Math.floor(min/60)}h${min%60}min<br>Laboratórios: ${dn.filter(t=>t.category=='Laboratórios').length}<br>Registros no diário: ${S.journal.length}<br>Hábitos/atividades feitas: ${rt}</p></div>
+<div class="card"><h2>Por categoria</h2>${dn.length?Object.entries(by).map(([k,v])=>`<div class="bt"><span style="width:110px">${k}</span>${bar(v/mx*100)}<span>${v}</span></div>`).join(''):'<p class="mut">Conclua tarefas no Kanban para gerar este gráfico.</p>'}</div>
+<div class="card"><h2>Progresso por fase</h2>${PH.map((p,i)=>`<div class="bt"><span style="width:70px">Fase ${i+1}</span>${bar(r.ph[i])}<span>${r.ph[i]}%</span></div>`).join('')}</div></div>`}
+function Config(){return`<h1>Configurações</h1><div class="grid"><div class="card"><h2>Datas</h2><label>Início do desafio de 70 dias</label><input type="date" id="cs" value="${S.start}"><label>Início do ciclo 4x2 (primeiro dia de trabalho)</label><input type="date" id="cc" value="${S.cycleStart}"><div style="margin-top:10px"><button class="btn" data-act="dates">Salvar</button> <button class="btn d" data-act="restart">Reiniciar desafio</button></div></div>
+<div class="card"><h2>Dados</h2><p class="mut">Os dados ficam apenas neste navegador. Limpar os dados do navegador pode removê-los. Exporte backups.</p><div class="row"><button class="btn" data-act="exp">Exportar JSON</button><button class="btn s" data-act="imp">Importar JSON</button><button class="btn d" data-act="reset">Restaurar demonstração</button></div><input type="file" id="fi" accept=".json" hidden></div></div>`}
+const dl=document.getElementById('dl'),ask=(m,fn)=>{dl.innerHTML=`<p>${m}</p><div class="row"><button class="btn d" id="y">Confirmar</button><button class="btn s" id="n">Cancelar</button></div>`;dl.showModal();y.onclick=()=>{dl.close();fn()};n.onclick=()=>dl.close()};
+const opts=(a,v)=>a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
+function taskForm(id){const t=S.tasks.find(x=>x.id==id)||{title:'',description:'',category:CATS[0],priority:'média',status:'Backlog',due:'',est:30,spent:0,notes:'',subs:[]};
+dl.innerHTML=`<form method="dialog" id="tf"><h2>${id?'Editar':'Nova'} tarefa</h2><label>Título *</label><input name="title" required value="${esc(t.title)}"><label>Descrição</label><textarea name="description" rows="2">${esc(t.description)}</textarea><div class="row"><div><label>Categoria</label><select name="category">${opts(CATS,t.category)}</select></div><div><label>Prioridade</label><select name="priority">${opts(PR,t.priority)}</select></div><div><label>Status</label><select name="status">${opts(COLS,t.status)}</select></div></div><div class="row"><div><label>Prazo</label><input type="date" name="due" value="${t.due}"></div><div><label>Estimativa (min)</label><input type="number" min="0" name="est" value="${t.est}"></div><div><label>Dedicado (min)</label><input type="number" min="0" name="spent" value="${t.spent}"></div></div>
+<label>Subtarefas</label>${t.subs.map(s=>`<label class="ck" style="font-family:inherit;color:var(--tx)"><input type="checkbox" name="sd" value="${esc(s.t)}" ${s.d?'checked':''}>${esc(s.t)}</label>`).join('')}<label>Novas subtarefas (uma por linha)</label><textarea name="ns" rows="2"></textarea><label>Anotações</label><textarea name="notes" rows="2">${esc(t.notes)}</textarea>
+<div class="row" style="margin-top:12px"><button class="btn" value="ok">Salvar</button><button class="btn s" type="button" id="cx">Cancelar</button>${id?'<button class="btn d" type="button" id="del">Excluir</button>':''}</div></form>`;dl.showModal();cx.onclick=()=>dl.close();
+if(id)del.onclick=()=>{dl.close();ask('Excluir esta tarefa?',()=>{S.tasks=S.tasks.filter(x=>x.id!=id);save();render()})};
+tf.onsubmit=e=>{const f=new FormData(tf),g=k=>f.get(k),checked=f.getAll('sd'),subs=t.subs.map(s=>({...s,d:checked.includes(s.t)})).concat(g('ns').split('\n').map(s=>s.trim()).filter(Boolean).map(x=>({id:uid(),t:x,d:false})));
+const o={title:g('title').trim(),description:g('description'),category:g('category'),priority:g('priority'),status:g('status'),due:g('due'),est:+g('est')||0,spent:+g('spent')||0,notes:g('notes'),subs};
+if(id){const was=t.status;Object.assign(t,o);if(was!=o.status&&o.status=='Concluídas')log('Concluiu: '+o.title)}else{S.tasks.push({id:uid(),created:td(),...o});log('Criou: '+o.title)}save();render()}}
+const JF=[['concepts','Conceitos estudados'],['commands','Comandos utilizados'],['result','Resultado observado'],['errors','Erros encontrados'],['solution','Como resolvi'],['todo','O que ainda preciso aprender'],['refs','Referências e links']];
+function jForm(id,tpl){const j=S.journal.find(x=>x.id==id)||{title:'',date:td(),cat:'Linux',tags:'',...(TPL[tpl]||{})};const ph=TPL[tpl]||{};
+dl.innerHTML=`<form method="dialog" id="jf"><h2>Registro</h2><label>Modelo</label><select id="tp"><option value="">Em branco</option>${Object.keys(TPL).map(k=>`<option ${k==tpl?'selected':''}>${k}</option>`).join('')}</select><label>Título *</label><input name="title" required value="${esc(j.title)}"><div class="row"><div><label>Data</label><input type="date" name="date" value="${j.date}"></div><div><label>Categoria</label><select name="cat">${opts(CATS,j.cat)}</select></div></div>${JF.map(([k,l])=>`<label>${l}</label><textarea name="${k}" rows="2" placeholder="${esc(ph[k]||'')}">${id?esc(j[k]):''}</textarea>`).join('')}<label>Tags (vírgula)</label><input name="tags" value="${esc(j.tags)}"><div class="row" style="margin-top:12px"><button class="btn">Salvar</button><button class="btn s" type="button" id="cx">Cancelar</button>${id?'<button class="btn d" type="button" id="del">Excluir</button>':''}</div></form>`;dl.showModal();cx.onclick=()=>dl.close();
+tp.onchange=()=>{if(!id)jForm(null,tp.value)};
+if(id)del.onclick=()=>{dl.close();ask('Excluir este registro?',()=>{S.journal=S.journal.filter(x=>x.id!=id);save();render()})};
+jf.onsubmit=()=>{const f=new FormData(jf),o={};['title','date','cat','tags',...JF.map(x=>x[0])].forEach(k=>o[k]=f.get(k));if(id)Object.assign(j,o);else S.journal.unshift({id:uid(),...o});log('Diário: '+o.title);save();render()}}
+document.addEventListener('click',e=>{const b=e.target.closest('button,[data-edit]');if(!b)return;const D=b.dataset;
+if(D.go){view=D.go;render()}else if(D.edit)taskForm(D.edit);else if(D.ej)jForm(D.ej);
+else if(D.rt){const[d,bl,k]=D.rt.split('|');S.routine[d]=S.routine[d]||{};if(k=='re'){const nd=iso(new Date(pd(d).getTime()+864e5));S.routine[nd]=S.routine[nd]||{};S.routine[nd][bl]='';S.routine[d][bl]='skip'}else S.routine[d][bl]=S.routine[d][bl]==k?'':k;if(k=='done')log('Rotina: '+bl);save();render()}
+else if(D.act=='newtask')taskForm();else if(D.act=='newj')jForm();else if(D.act=='clr'){err='';render()}
+else if(D.act=='dates'){S.start=cs.value||S.start;S.cycleStart=cc.value||S.cycleStart;save();render()}
+else if(D.act=='restart')ask('Reiniciar o desafio hoje? Seus dados são mantidos.',()=>{S.wins.push({ended:td(),oldStart:S.start});S.start=td();save();render()});
+else if(D.act=='exp'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.download='anti-ethical-backup.json';a.click()}
+else if(D.act=='imp')fi.click();else if(D.act=='reset')ask('Substituir TODOS os dados pelos de demonstração?',()=>{S=demo();save();render()})});
+document.addEventListener('change',e=>{const t=e.target,D=t.dataset;
+if(D.f!==undefined){F[D.f]=t.value;render()}else if(D.mv){const k=S.tasks.find(x=>x.id==D.mv);k.status=t.value;if(t.value=='Concluídas')log('Concluiu: '+k.title);save();render()}
+else if(D.rd){S.road[D.rd]=t.checked;if(t.checked)log('Roadmap: '+PH[D.rd.split('-')[0]][1][D.rd.split('-')[1]]);save();render()}
+else if(D.obs!==undefined){S.routine[D.obs]=S.routine[D.obs]||{};S.routine[D.obs]._obs=t.value;save()}
+else if(t.id=='fi'){const f=t.files[0];if(!f)return;f.text().then(x=>{try{const o=JSON.parse(x);if(!Array.isArray(o.tasks)||!Array.isArray(o.journal)||!o.start)throw 0;ask('Substituir todos os dados atuais pelo backup?',()=>{S=o;save();render()})}catch(_){err='Arquivo de backup inválido.';render()}})}});
+document.addEventListener('input',e=>{if(e.target.dataset.jq!==undefined){JQ=e.target.value;const p=e.target.selectionStart;render();const i=document.querySelector('[data-jq]');i.focus();i.setSelectionRange(p,p)}if(e.target.dataset.f=='q'){F.q=e.target.value;const p=e.target.selectionStart;render();const i=document.querySelector('[data-f=q]');i.focus();i.setSelectionRange(p,p)}});
+let drag;document.addEventListener('dragstart',e=>{const k=e.target.closest('.k');if(k)drag=k.dataset.id});
+document.addEventListener('dragover',e=>{const c=e.target.closest('.col');if(c&&drag){e.preventDefault();c.classList.add('over')}});
+document.addEventListener('dragleave',e=>{const c=e.target.closest('.col');if(c)c.classList.remove('over')});
+document.addEventListener('drop',e=>{const c=e.target.closest('.col');if(c&&drag){e.preventDefault();const k=S.tasks.find(x=>x.id==drag);k.status=c.dataset.col;if(k.status=='Concluídas')log('Concluiu: '+k.title);drag=null;save();render()}});
+document.getElementById('tg').onclick=()=>document.getElementById('sb').classList.toggle('min');
+let rev=+localStorage.getItem('ae.rev')||0,tm,st='off';
+const hdr=()=>({'content-type':'application/json','x-sync-key':localStorage.getItem('ae.key')||''});
+function askKey(){dl.innerHTML='<form method="dialog" id="kf"><h2>Senha de sincronização</h2><p class="mut">Use a mesma senha (SYNC_PASSWORD) em todos os dispositivos.</p><input type="password" id="ki" required aria-label="Senha"><div class="row" style="margin-top:12px"><button class="btn">Entrar</button></div></form>';if(!dl.open)dl.showModal();kf.onsubmit=()=>{localStorage.setItem('ae.key',ki.value);pull()}}
+function adopt(j){S=j.data;rev=j.rev;try{localStorage.setItem(KEY,JSON.stringify(S));localStorage.setItem('ae.rev',rev)}catch(e){}if(!dl.open&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))render()}
+async function pull(){try{const r=await fetch('/api/state',{headers:hdr(),cache:'no-store'});if(r.status==401){st='off';nav();askKey();return}if(!r.ok)throw 0;const j=await r.json();st='ok';if(!j.data)push();else if(j.rev>rev)adopt(j)}catch(e){st='off'}nav()}
+function push(){clearTimeout(tm);tm=setTimeout(async()=>{try{const r=await fetch('/api/state',{method:'PUT',headers:hdr(),body:JSON.stringify({rev,data:S})});if(r.status==401){askKey();return}if(r.status==409){adopt(await r.json());err='Outro dispositivo salvou antes; dados atualizados. Refaça a última alteração se ela sumiu.';render()}else if(r.ok){rev=(await r.json()).rev;localStorage.setItem('ae.rev',rev);st='ok'}else throw 0}catch(e){st='off'}nav()},800)}
+setInterval(()=>{if(!document.hidden)pull()},20000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull()});
+addEventListener('online',pull);
+load();render();pull();
+</script></body></html>
